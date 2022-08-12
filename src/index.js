@@ -1,3 +1,4 @@
+
 const MORSE_TABLE = {
     '.-':     'a',
     '-...':   'b',
@@ -38,8 +39,26 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+  let countTen = 0
+  let countSlice = 0
+  let arr = []
+  let result = []
+
+  while (countTen < expr.length / 10) {
+      arr.push(expr.split('').slice(countSlice, (countSlice + 10)))
+      countTen++
+      countSlice += 10
+  }
+
+  result = arr.map((item) => {
+      if (item.join('').includes('*')) return ' '
+      return MORSE_TABLE[item.join('').replace(/^0+/, '').replace(/11/g, '-').replace(/10/g, '.')]
+  })
+
+  return result.join('')
 }
+
+
 
 module.exports = {
     decode
